@@ -19,6 +19,8 @@
         <oracle.jdbc.version>12.1.0.1-atlassian-hosted</oracle.jdbc.version>
     </properties>
 
+
+
     <dependencies>
 
         <dependency>
@@ -52,8 +54,7 @@
             <artifactId>druid</artifactId>
             <version>1.1.9</version>
         </dependency>
-        <!--添加poi依赖-->
-
+        <!--添加poi依赖 使用fastDFS可以不导入-->
         <dependency>
         <groupId>org.apache.poi</groupId>
         <artifactId>poi</artifactId>
@@ -110,7 +111,7 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>3.2.0</version>
         </dependency>
-        <!-- 这是模板引擎依赖 -->
+        <!-- 这是模板引擎依赖 代码自动生成使用 -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
@@ -165,15 +166,40 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!-- 远程调用 httpclient -->
+        <!--pdf转word-->
         <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.5</version>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.12</version>
         </dependency>
 
+        <!--Spire提供的jar包
+        参考网址：
+        https://www.e-iceblue.cn/spirepdfjava/convert-pdf-to-html-word-svg-and-xps-file-formats-in-java.html-->
+        <dependency>
+            <groupId>e-iceblue </groupId>
+            <artifactId>spire.pdf</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+
+        <!-- FOP依赖 转pdf使用-->
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <!--跨服务调用-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
+
+
     </dependencies>
+
+
 
     <build>
         <plugins>
