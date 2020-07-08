@@ -25,7 +25,7 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
       filters: stat
   profiles:
-        include: jdbc
+    include: jdbc
 
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml

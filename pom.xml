@@ -20,18 +20,17 @@
     </properties>
 
 
-
     <dependencies>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.0.0</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.mybatis.spring.boot</groupId>
+             <artifactId>mybatis-spring-boot-starter</artifactId>
+             <version>2.0.0</version>
+         </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -56,10 +55,10 @@
         </dependency>
         <!--添加poi依赖 使用fastDFS可以不导入-->
         <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi</artifactId>
-        <version>4.1.0</version>
-    </dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
@@ -75,6 +74,14 @@
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>4.1.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.crab2died/Excel4J -->
+        <dependency>
+            <groupId>com.github.crab2died</groupId>
+            <artifactId>Excel4J</artifactId>
+            <version>3.0.0-Alpha</version>
+        </dependency>
+
+
         <!--利用fastJson替换掉jackson，且解决中文乱码问题-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -177,7 +184,7 @@
         参考网址：
         https://www.e-iceblue.cn/spirepdfjava/convert-pdf-to-html-word-svg-and-xps-file-formats-in-java.html-->
         <dependency>
-            <groupId>e-iceblue </groupId>
+            <groupId>e-iceblue</groupId>
             <artifactId>spire.pdf</artifactId>
             <version>3.4.2</version>
         </dependency>
@@ -196,9 +203,7 @@
         </dependency>
 
 
-
     </dependencies>
-
 
 
     <build>

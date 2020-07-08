@@ -1,5 +1,6 @@
 package com.demo.updown.controller;
 
+
 import com.demo.updown.config.UploadService;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
@@ -7,13 +8,14 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.ColumnMapRowMapper;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,20 +31,20 @@ public class UploadControlller {
 
     protected static final Logger logger = LoggerFactory.getLogger(UploadControlller.class);
 
-    @Autowired
+    @Resource
     private UploadService uploadService;
-
     @Autowired
     private FastFileStorageClient storageClient;
 
     @RequestMapping("/toindex")
-    public String toindex(){
+    public String toindex() {
         return "/index";
     }
+
     @PostMapping("/uploads")
     @ResponseBody
     public String uploads(MultipartFile[] uploadfiles, HttpServletRequest request) {
-        logger.info("打印信息:tt{}"+uploadfiles);
+        logger.info("打印信息:tt{}" + uploadfiles);
         //上传文件数组做判断为空操作
         if (uploadfiles == null || uploadfiles.length < 1) {
             return "文件不能为空";
@@ -75,49 +77,48 @@ public class UploadControlller {
         }
         return "上传失败";
     }
-	
-	
-	
-        //多文件上传
-        @RequestMapping(value = "/uploadFiles",method = RequestMethod.POST)
-        @ResponseBody
-        public String handleFileUpload(HttpServletRequest request){
-            //获取页面传来的文件名称
-            List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("uploadfiles");
-            MultipartFile file=null;
-            BufferedOutputStream stream=null;
-            for(int i=0;i<files.size();i++){
-                file=files.get(i);
-                //设置文件存贮路径
-                String filePath="D://";
-                if(!file.isEmpty()){
-                    try{
-                        byte[] bytes=file.getBytes();
-                        stream=new BufferedOutputStream(new FileOutputStream(new File(filePath+file.getOriginalFilename())));
-                        stream.write(bytes);//写入
-                        stream.close();
-                    }catch(Exception w){
-                        stream=null;
-                        return "the"+i+"file upload failuer";
 
-                    }
-                }else{
-                return "the" +i+"file is empty";
+
+    //多文件上传
+    @RequestMapping(value = "/uploadFiles", method = RequestMethod.POST)
+    @ResponseBody
+    public String handleFileUpload(HttpServletRequest request) {
+        //获取页面传来的文件名称
+        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("uploadfiles");
+        MultipartFile file = null;
+        BufferedOutputStream stream = null;
+        for (int i = 0; i < files.size(); i++) {
+            file = files.get(i);
+            //设置文件存贮路径
+            String filePath = "D://";
+            if (!file.isEmpty()) {
+                try {
+                    byte[] bytes = file.getBytes();
+                    stream = new BufferedOutputStream(new FileOutputStream(new File(filePath + file.getOriginalFilename())));
+                    stream.write(bytes);//写入
+                    stream.close();
+                } catch (Exception w) {
+                    stream = null;
+                    return "the" + i + "file upload failuer";
+
                 }
+            } else {
+                return "the" + i + "file is empty";
             }
-            return "文件上传成功";
         }
+        return "文件上传成功";
+    }
 
-        //测试fsatDFS
-        @RequestMapping(value = "/uploadFastDFS",method = RequestMethod.POST)
-        @ResponseBody
-        public String testFastDFS(MultipartFile uploadfiles){
-            System.out.println(uploadfiles.getOriginalFilename());
-            Map<String, Object> map=new HashMap<>();
-            String filePath = uploadService.uploadImage(uploadfiles);
+    //测试fsatDFS
+    @RequestMapping(value = "/uploadFastDFS", method = RequestMethod.POST)
+    @ResponseBody
+    public String testFastDFS(MultipartFile uploadfiles) {
+        System.out.println(uploadfiles.getOriginalFilename());
+        Map<String, Object> map = new HashMap<>();
+        String filePath = uploadService.uploadImage(uploadfiles);
 
-            return filePath;
-        }
+        return filePath;
+    }
 
     @PostMapping("myUpload")
     @ResponseBody
@@ -156,42 +157,41 @@ public class UploadControlller {
     }*/
 
 
-
     // 文件下载
-	@RequestMapping(value = "/findFile",method = RequestMethod.GET)
-    public void findFile(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "/findFile", method = RequestMethod.GET)
+    public void findFile(HttpServletRequest request, HttpServletResponse response) {
 
         ServletOutputStream out = null;
         FileInputStream ips = null;
 
-        try{
+        try {
             java.io.File file = ResourceUtils.getFile("classpath:templates/text.txt");
-            if(!file.exists()){
+            if (!file.exists()) {
                 System.out.println("文件不存在");
                 return;
             }
             String name = file.getName();
-            String newName= UUID.randomUUID().toString()+name;
+            String newName = UUID.randomUUID().toString() + name;
             System.out.println(newName);
-            ips=new FileInputStream(file);
+            ips = new FileInputStream(file);
             response.setContentType("multipart/form-data");
             //为文件重新设置名字，采用数据库内存储的文件名称
-            response.addHeader("Content-Disposition", "attachment; filename=\"" + new String(newName.getBytes("UTF-8"),"ISO8859-1") + "\"");
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + new String(newName.getBytes("UTF-8"), "ISO8859-1") + "\"");
             out = response.getOutputStream();
             //读取文件流
             int len = 0;
             byte[] buffer = new byte[1024 * 10];
-            while ((len = ips.read(buffer)) != -1){
-                out.write(buffer,0,len);
+            while ((len = ips.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
             }
-        }catch (Exception o){
+        } catch (Exception o) {
             o.printStackTrace();
             System.out.println("IO出现异常");
-        }finally {
-            try{
+        } finally {
+            try {
                 out.close();
                 ips.close();
-            }catch (IOException o){
+            } catch (IOException o) {
                 System.out.println("关闭异常");
                 o.fillInStackTrace();
             }

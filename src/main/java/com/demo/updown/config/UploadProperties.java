@@ -11,8 +11,9 @@ import java.util.List;
  * @create: 2020-01-03 10:44
  **/
 
-@ConfigurationProperties(prefix = "upload")
+
 @Data
+@ConfigurationProperties("upload")
 public class UploadProperties {
 
     private String baseUrl;

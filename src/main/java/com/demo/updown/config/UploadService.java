@@ -9,17 +9,18 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-@Component
+@Repository
 @EnableConfigurationProperties(UploadProperties.class)
 public class UploadService {
 
-    private Log log= LogFactory.getLog(UploadService.class);
+    private Log log = LogFactory.getLog(UploadService.class);
 
     @Autowired
     private FastFileStorageClient storageClient;
@@ -41,7 +42,7 @@ public class UploadService {
             }
         } catch (IOException e) {
             log.error("校验文件内容失败....{}", e);
-            throw new RuntimeException("校验文件内容失败"+e.getMessage());
+            throw new RuntimeException("校验文件内容失败" + e.getMessage());
         }
 
         try {
@@ -54,7 +55,7 @@ public class UploadService {
             return prop.getBaseUrl() + storePath.getFullPath();
         } catch (IOException e) {
             log.error("【文件上传】上传文件失败！....{}", e);
-            throw  new RuntimeException("【文件上传】上传文件失败！"+e.getMessage());
+            throw new RuntimeException("【文件上传】上传文件失败！" + e.getMessage());
         }
     }
 }
